@@ -27,6 +27,10 @@ email["short_body"] = email["body"][:10] + "..."
 personal_domains = ['gmail.com', 'list.ru', 'yahoo.com', 'outlook.com', 'hotmail.com', 'icloud.com', 'yandex.ru', 'mail.ru', 'list.ru', 'bk.ru', 'inbox.ru']
 corporate_domains = ['company.ru', 'corporation.com', 'university.edu', 'organization.org', 'company.ru', 'business.net']
 
+# 7
+# Проверьте что в списке личных и корпоративных доменов нет пересечений (вывод результата проверки в конце после
+intersection = personal_domains & corporate_domains
+
 # Убираем дубликаты (сделаем уникальными)
 personal_domains = list(set(personal_domains))
 corporate_domains = list(set(corporate_domains))
@@ -45,8 +49,8 @@ email["sent_text"] = f"Кому: {email['to']}, от {email['from']} Тема: {
 pages = (len(email["sent_text"]) + 499) // 500  # округление в большую сторону
 
 # 12. Проверьте пустоту темы и тела письма
-is_subject_empty = not email["subject"]
-is_body_empty = not email["body"]
+is_subject_empty = not email["subject"].strip()
+is_body_empty = not email["body"].strip()
 
 # 13. Создайте «маску» e-mail отправителя
 email["masked_from"] = login[:2] + "***@" + domain
